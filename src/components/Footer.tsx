@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
         <div>
           <p className="text-sm text-center p-6">
-            © 2035 Creado por Teravisiontech con Teravisiontech
+            © 2035 Creado por Alejandro Olivar.
           </p>
         </div>
       </div>
