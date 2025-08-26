@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  font-family: "Wix Madefor Text", system-ui;
+}
+.ant-drawer-header{
+  background-color: #bbf7d0;
+}
