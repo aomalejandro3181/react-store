@@ -38,15 +38,20 @@ export const ProductsProvider = (props: Props) => {
       setIsLoading(true);
       try {
         const urlFinal = category
-          ? `${API_URL}/category?type=${category}`
-          : `${API_URL}`;
+          ? `${API_URL}/products/category/${category}`
+          : `${API_URL}/products`;
         console.log(category);
         const response = await fetch(urlFinal);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const responseData = await response.json();
-        setListProducts(responseData.products);
-        setOriginalProductsList(responseData.products);
+        setListProducts(responseData);
+        setOriginalProductsList(responseData);
       } catch (error) {
         console.log(error);
+        setListProducts([]);
+        setOriginalProductsList([]);
       } finally {
         setIsLoading(false);
       }
@@ -54,8 +59,8 @@ export const ProductsProvider = (props: Props) => {
     fetchListProducts();
   }, [category]);
 
-  const getCategoryParam = (cat: string) => {
-    setCategory(cat);
+  const getCategoryParam = (cat: string | null) => {
+    setCategory(cat || undefined);
   };
 
   const sortProducts = (sort: Order) => {

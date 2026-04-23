@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { ProductProps } from "../types/product";
+import { ProductProps, Order } from "../types/product";
 
 export interface ProductContextType {
   listProducts: ProductProps[];
@@ -8,8 +8,17 @@ export interface ProductContextType {
   termSearch?: string;
   category?: string | undefined;
   searchProducts: (term: string) => void;
-  sortProducts: (sort: string | null) => void;
+  sortProducts: (sort: Order) => void;
   getCategoryParam: (cat: string | null) => void;
 }
 
-export const ProductsContext = createContext<ProductContextType>();
+export const ProductsContext = createContext<ProductContextType>({
+  listProducts: [],
+  isLoading: false,
+  filteredProducts: [],
+  termSearch: "",
+  category: undefined,
+  searchProducts: () => {},
+  sortProducts: () => {},
+  getCategoryParam: () => {},
+});

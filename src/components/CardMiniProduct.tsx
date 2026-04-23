@@ -12,7 +12,7 @@ function CardMiniProduct(props: ProductProps) {
   const { removeItemCart, addToCart } = useContext(CartContext);
 
   const deleteItem = (id: number) => {
-    removeItemCart(id, props.quantity);
+    removeItemCart(id, props.quantity ?? 0);
   };
 
   const addItem = () => {
@@ -49,7 +49,7 @@ function CardMiniProduct(props: ProductProps) {
           <Space.Compact>
             <Button
               type="link"
-              disabled={props.quantity <= 1 && true}
+              disabled={(props.quantity ?? 1) <= 1}
               onClick={() => {
                 removeItem();
               }}

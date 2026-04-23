@@ -10,10 +10,17 @@ const ListMenuCategories = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await fetch(`${API_URL}/category`);
-      const data = await response.json();
-
-      setListCategories(data.categories);
+      try {
+        const response = await fetch(`${API_URL}/products/categories`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setListCategories(data);
+      } catch (error) {
+        console.log(error);
+        setListCategories([]);
+      }
     };
     fetchCategories();
   }, []);

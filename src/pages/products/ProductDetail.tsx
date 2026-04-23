@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { API_URL } from "../../constants";
 import currencyFormatter from "../../helpers/currencyFormatter";
 import { Heart } from "lucide-react";
@@ -13,6 +13,7 @@ import { FavoritesContext } from "../../context/FavoritesContext";
 
 const ProductDetail = () => {
   const { productId } = useParams<string>();
+  const id = parseInt(productId || "0");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductProps>({} as ProductProps);
   const [open, setOpen] = useState<boolean>(false);
@@ -24,9 +25,9 @@ const ProductDetail = () => {
     const fetchProduct = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${API_URL}/${productId}`);
+        const response = await fetch(`${API_URL}/products/${productId}`);
         const responseData = await response.json();
-        setProduct(responseData.product);
+        setProduct(responseData);
       } catch (error) {
         console.log(error);
       } finally {
@@ -36,15 +37,15 @@ const ProductDetail = () => {
     fetchProduct();
   }, [productId]);
 
-  const handleQuantityChange = (event) => {
+  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = parseInt(event.target.value);
     if (newQuantity >= 1) {
       setQuantity(newQuantity);
     }
   };
 
-  const existProduct = (id: string | undefined) => {
-    return isCartFind(id);
+  const existProduct = () => {
+    return isCartFind(id) > -1;
   };
 
   const addCart = () => {
@@ -104,14 +105,14 @@ const ProductDetail = () => {
             </div>
             <div className="w-1/2">
               <button
-                disabled={existProduct(productId) >= 0 && true}
+                disabled={existProduct()}
                 type="button"
                 onClick={addCart}
                 className="w-full h-10 border bg-purple-500 hover:bg-purple-800 active:bg-purple-400 text-white font-light shadow-xl rounded-full disabled:bg-purple-200"
               >
-                {existProduct(productId) < 0
-                  ? "Agregar al carrito"
-                  : "Agregado"}
+                {existProduct()
+                  ? "Agregado"
+                  : "Agregar al carrito"}
               </button>
             </div>
           </div>

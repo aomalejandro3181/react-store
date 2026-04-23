@@ -8,7 +8,7 @@ export interface FavoritesContextType {
   removeFavorite: (product: ProductProps) => void;
 }
 
-export const FavoritesContext = createContext<FavoritesContextType | null>({
+export const FavoritesContext = createContext<FavoritesContextType>({
     favorites: [],
     isFavoriteFind: () => false,
     addFavorite: () => {},

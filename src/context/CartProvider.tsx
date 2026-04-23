@@ -19,7 +19,7 @@ const CartProvider = (props: Props) => {
     if (isItemCart !== -1) {
       //exist item!
       const updateCart = [...cart];
-      updateCart[isItemCart].quantity += quantity;
+      updateCart[isItemCart].quantity = (updateCart[isItemCart].quantity || 0) + quantity;
 
       setCart(updateCart);
     } else {
@@ -43,12 +43,14 @@ const CartProvider = (props: Props) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
 
     setTotalQuantity((prevTotal) => prevTotal - quantity);
-    setSubTotal(
-      (prevTotal) => prevTotal - itemToRemove?.price * itemToRemove?.quantity
-    );
+    if (itemToRemove) {
+      setSubTotal(
+        (prevTotal) => prevTotal - itemToRemove.price * (itemToRemove.quantity || 0)
+      );
+    }
   };
 
-  const isCartFind = (id: number) => {
+  const isCartFind = (id: number | string) => {
     return cart.findIndex((itemCart) => itemCart.id == id);
   };
 

@@ -32,7 +32,7 @@ const FavoritesProvider = (props: Props) => {
             });
         }
     }
-    const isFavoriteFind = (id: number) => {
+    const isFavoriteFind = (id: number | string) => {
         return favorites.some((favorite) => favorite.id === id);
     };
 

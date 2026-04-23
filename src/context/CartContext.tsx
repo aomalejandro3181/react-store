@@ -11,4 +11,12 @@ interface CartContextType {
   subTotal: number;
 }
 
-export const CartContext = createContext<CartContextType | null>(null);
+export const CartContext = createContext<CartContextType>({
+  addToCart: () => {},
+  removeItemCart: () => {},
+  isCartFind: () => 0,
+  cart: [],
+  quantity: 0,
+  totalQuantity: 0,
+  subTotal: 0,
+});

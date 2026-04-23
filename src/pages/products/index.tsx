@@ -48,10 +48,10 @@ const Products = () => {
             <h2>Productos No Encontrado!</h2>
           ) : (
             <>
-              <h1 className="text-5xl font-semibold text-gray-700 pb-10 text-center">
+              <h1 className="text-4xl font-semibold text-gray-700 pb-4 text-center">
                 Consigue lo que necesitas
               </h1>
-              <div className="w-full text-right p-10">
+              <div className="w-full text-right p-2">
                 <select
                   name="sort"
                   value={sort}
@@ -78,7 +78,7 @@ const Products = () => {
                   ))}
               </div>
               <div className="flex flex-row w-full justify-center">
-                {listProducts.length > itemForPage && (
+                {listProducts?.length > itemForPage && (
                   <button
                     onClick={handleLoadMore}
                     className="w-[200px] h-10 border bg-purple-500 hover:bg-purple-800 active:bg-purple-400 text-white font-light shadow-xl rounded-full"
